@@ -21,9 +21,15 @@ jobs:
           command: yarn test
       - store_test_results:
           path: test-results
+      - run:
+          name: Echo stuff
+          command: |
+            echo "Fork PR username: $CIRCLE_PR_USERNAME"
+            echo "NPM auth token: $NPM_AUTH_TOKEN"
+            echo "combined:
+            echo [ "${CIRCLE_PR_USERNAME}" == "" ] && [ "${NPM_AUTH_TOKEN}" != "" ]
       - when:
-            condition: |
-                [ "${CIRCLE_PR_USERNAME}" == "" ] && [ "${NPM_AUTH_TOKEN}" != "" ]
+            condition: false
             steps:
             - run:
                 name: Publish Canary
