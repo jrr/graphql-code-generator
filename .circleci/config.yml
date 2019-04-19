@@ -26,7 +26,7 @@ jobs:
           command: |
             echo "Fork PR username: $CIRCLE_PR_USERNAME"
             echo "NPM auth token: $NPM_AUTH_TOKEN"
-            echo "combined:
+            echo "combined:"
             echo [ "${CIRCLE_PR_USERNAME}" == "" ] && [ "${NPM_AUTH_TOKEN}" != "" ]
       - when:
             condition: false
