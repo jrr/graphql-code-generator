@@ -919,6 +919,16 @@ describe('TypeScript', () => {
       `);
       validateTs(result);
     });
+
+    it('Should emit only enums when given generateOnly:enums', async () => {
+      const schema = buildSchema(`type T { f: String, e: E } enum E { A }`);
+      const result = (await plugin(schema, [], { generateOnly: ['enums'] }, { outputFile: '' })) as Types.ComplexPluginOutput;
+
+      expect(result.content).toContain(`enum E`);
+      expect(result.content).not.toContain(`type T`);
+
+      validateTs(result);
+    });
   });
 
   describe('Scalars', () => {

@@ -127,6 +127,25 @@ export interface TypeScriptPluginConfig extends RawTypesConfig {
    * ```
    */
   noExport?: boolean;
+  /**
+   * @name generateOnly
+   * @type string
+   * @description Set the to `enums` in order to generate output containing only enums.
+   * This is useful if you'd like to generate a second file with an opposite enumsAsTypes selection.
+   * @default undefined
+   *
+   * @example Disable all export from a file
+   * ```yml
+   * generates:
+   * path/to/file.ts:
+   *  plugins:
+   *    - typescript
+   *  config:
+   *    generateOnly:
+   *      - enums
+   * ```
+   */
+  generateOnly?: ['enums'];
 }
 
 export const plugin: PluginFunction<TypeScriptPluginConfig> = (schema: GraphQLSchema, documents: Types.DocumentFile[], config: TypeScriptPluginConfig) => {
