@@ -157,6 +157,12 @@ export const plugin: PluginFunction<TypeScriptPluginConfig> = (schema: GraphQLSc
   const introspectionDefinitions = includeIntrospectionDefinitions(schema, documents, config);
   const scalars = visitor.scalarsDefinition;
 
+  if (config.generateOnly && config.generateOnly.length > 0 && config.generateOnly[0] === 'enums') {
+    return {
+      prepend: [ ],
+      content: [visitorResult.definitions.filter(d => d.includes('export enum'))].join('\n'),
+    };
+  }
   return {
     prepend: [...visitor.getEnumsImports(), ...visitor.getScalarsImports(), maybeValue],
     content: [scalars, ...visitorResult.definitions, ...introspectionDefinitions].join('\n'),
